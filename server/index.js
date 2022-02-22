@@ -10,7 +10,10 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-  console.log({ id: socket.id });
+  socket.on('join-room', (data) => {
+    const { username, room } = data;
+    socket.join(room);
+  });
 });
 
 server.listen(port, () => {
