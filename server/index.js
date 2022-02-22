@@ -21,6 +21,14 @@ io.on('connection', (socket) => {
     // pengirim dapat melihat pesannya sendiri
     io.to(room).emit('receive-message', message);
   });
+
+  socket.on('send-message', (message) => {
+    io.to(message.room).emit('receive-message', message);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`User with id : ${socket.id} has been disconnected`);
+  });
 });
 
 server.listen(port, () => {
